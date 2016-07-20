@@ -19,3 +19,4 @@ gradle
 .project
 .settings
 build
+.vscode
