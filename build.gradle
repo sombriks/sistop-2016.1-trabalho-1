@@ -31,5 +31,11 @@ dependencies {
     // testCompile dependency to testCompile 'org.testng:testng:6.8.1' and add
     // 'test.useTestNG()' to your build script.
     testCompile "junit:junit:4.11"
+    // https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
+	compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.6.1'
+	// https://mvnrepository.com/artifact/org.projectlombok/lombok
+	compile group: 'org.projectlombok', name: 'lombok', version: '1.16.10'
+	
+    
 }
 
