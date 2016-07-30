@@ -21,3 +21,5 @@ gradle
 build
 .vscode
 /bin/
+*.iml
+.idea
