@@ -12,7 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 class ProcessoCliente {
 
   private String        senha;
-  private int           id;
+  private long          id;
   private long          tempoAtendimento;
   private StatusCliente status;
 

@@ -49,11 +49,14 @@ class ProcessoCaixa extends Thread {
       if (clienteAtual != null) {
         atende(clienteAtual);
       } else {
-        String s = "%s está ninguém pra atender, soneca de 1 segundo...";
+        String s = "[%s] está sem ninguém pra atender, soneca de 1 segundo...";
         s = String.format(s, nome);
         log.info(s);
         Thread.sleep(1000);
       }
     }
+    String s = "[%s] está indo pra casa, a agência fechou por hoje.";
+    s = String.format(s, nome);
+    log.info(s);
   }
 }

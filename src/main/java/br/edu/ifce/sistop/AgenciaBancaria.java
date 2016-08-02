@@ -8,6 +8,7 @@ import java.util.concurrent.Semaphore;
 
 import lombok.Getter;
 import lombok.SneakyThrows;
+import lombok.Synchronized;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -49,7 +50,7 @@ public class AgenciaBancaria {
     }
   }
 
-  public void recebeCliente(int i, long tempoAtendimento) {
+  public void recebeCliente(long i, long tempoAtendimento) {
     int l = senhas.length;
     // já os clientes só tem senha
     String senha = senhas[rnd(l)] + senhas[rnd(l)] + senhas[rnd(l)] + senhas[rnd(l)];
@@ -60,7 +61,7 @@ public class AgenciaBancaria {
   }
 
   @SneakyThrows
-  // @Synchronized("cxlivres")
+  @Synchronized("cxlivres") // mutex
   public void atendeProximoCliente() {
     cxlivres.acquire();
     ProcessoCaixa pc = caixas.remove(0);
@@ -89,8 +90,8 @@ public class AgenciaBancaria {
     clientes.removeAll(clientes);
     while (totalCaixas != caixas.size())
       Thread.sleep(1000);
-
     aberta = false;
+
     log.info("Resumo de atendimento: ");
     int i = caixas.size();
     while (i-- > 0) {
@@ -99,7 +100,5 @@ public class AgenciaBancaria {
       s = String.format(s, cx.getNome(), cx.getAtendidos());
       log.info(s);
     }
-
   }
-
 }
