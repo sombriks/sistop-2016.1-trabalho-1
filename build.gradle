@@ -36,6 +36,6 @@ dependencies {
 	// https://mvnrepository.com/artifact/org.projectlombok/lombok
 	compile group: 'org.projectlombok', name: 'lombok', version: '1.16.10'
 	
-    
+	compile 'org.processing:java-mode:3.1.1'    
 }
 

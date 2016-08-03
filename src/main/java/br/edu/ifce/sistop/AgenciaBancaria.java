@@ -16,17 +16,15 @@ public class AgenciaBancaria {
 
   private List<ProcessoCaixa>   caixas       = new ArrayList<>();
   private List<ProcessoCliente> clientes     = new ArrayList<>();
-  private Semaphore             cxlivres;
-
-  // cosmetic
-  private String                nomes[]      = { "José", "Antônio", "Dorneles", "Atílio", "Fernando", "Bruce" };
-  private String                sobrenomes[] = { "Silva", "Resende", "Parente", "Antunes", "Tobias", "Wayne" };
-  private String                senhas[]     = { "A", "B", "C", "D", "1", "2", "3", "4", "5", "6", "7", "X", "K" };
-
+  private Semaphore             cxlivres;  
   @Getter
   private int                   totalCaixas;
   @Getter
   private boolean               aberta;
+  // cosmetic
+  private String                nomes[]      = { "José", "Antônio", "Dorneles", "Atílio", "Fernando", "Bruce" };
+  private String                sobrenomes[] = { "Silva", "Resende", "Parente", "Antunes", "Tobias", "Wayne" };
+  private String                senhas[]     = { "A", "B", "C", "D", "1", "2", "3", "4", "5", "6", "7", "X", "K" };
 
   private int rnd(int max) {
     return (int) Math.floor(Math.random() * max);
@@ -67,15 +65,6 @@ public class AgenciaBancaria {
     ProcessoCaixa pc = caixas.remove(0);
     ProcessoCliente cli = clientes.remove(0);
     pc.setClienteAtual(cli);
-    // pc.notify();
-  }
-
-  public int totalClientes() {
-    return clientes.size();
-  }
-
-  public int caixasLivres() {
-    return caixas.size();
   }
 
   void finalizouAtendimento(ProcessoCaixa caixa) {
