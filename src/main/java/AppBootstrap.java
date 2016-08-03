@@ -9,6 +9,6 @@ import processing.core.PApplet;
 public class AppBootstrap {
 
   public static void main(String... args) {    
-    PApplet.main("br.edu.ifce.sistop.gui.ProcessingGUI");    
+    PApplet.main("br.edu.ifce.sistop.game.ProcessingGUI");    
   }
 }

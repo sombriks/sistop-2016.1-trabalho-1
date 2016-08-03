@@ -59,7 +59,7 @@ public class AgenciaBancaria {
   }
 
   @SneakyThrows
-  @Synchronized("cxlivres") // mutex
+  @Synchronized("cxlivres") // mutex usar semaforo
   public void atendeProximoCliente() {
     cxlivres.acquire();
     ProcessoCaixa pc = caixas.remove(0);
