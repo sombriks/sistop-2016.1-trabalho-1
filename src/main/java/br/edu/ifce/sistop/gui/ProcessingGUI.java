@@ -25,7 +25,6 @@ public class ProcessingGUI extends PApplet {
   public void setup() {
     frameRate(60);
     initial = new InitialState();
-    initial.reset(this);
     current = initial;
   }
 

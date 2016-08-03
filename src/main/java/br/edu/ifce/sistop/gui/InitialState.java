@@ -1,20 +1,21 @@
 package br.edu.ifce.sistop.gui;
 
-import processing.core.PConstants;
-
 public class InitialState implements GameState {
 
   private GameButton btIniciar;
 
+  private boolean    reseted;
+
   @Override
   public void reset(ProcessingGUI context) {
-    context.imageMode(PConstants.CENTER);
-    context.textAlign(PConstants.CENTER, PConstants.CENTER);
-    btIniciar = new GameButton("Iniciar", 320, 240);
+    btIniciar = new GameButton("Iniciar", 320, 240,160,32);
+    reseted = true;
   }
 
   @Override
   public void draw(ProcessingGUI context) {
+    if (!reseted)
+      reset(context);
     btIniciar.draw(context);
   }
 

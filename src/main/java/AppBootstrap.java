@@ -1,7 +1,5 @@
 import processing.core.PApplet;
 
-
-
 /**
  * Entry point
  * 
