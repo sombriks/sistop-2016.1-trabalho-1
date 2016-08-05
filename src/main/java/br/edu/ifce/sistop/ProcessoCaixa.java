@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequiredArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-class ProcessoCaixa extends Thread {
+public class ProcessoCaixa extends Thread {
 
   @NonNull
   private String          nome;

@@ -9,7 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 @Data
 @Slf4j
 @AllArgsConstructor
-class ProcessoCliente {
+public class ProcessoCliente {
 
   private String        senha;
   private long          id;

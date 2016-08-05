@@ -13,7 +13,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AgenciaBancaria {
 
+  @Getter
   private List<ProcessoCaixa>   caixas       = new ArrayList<>();
+  @Getter
   private List<ProcessoCliente> clientes     = new ArrayList<>();
   private Semaphore             cxlivres;
   private Semaphore             mutex        = new Semaphore(1, true);
@@ -61,7 +63,7 @@ public class AgenciaBancaria {
   public void atendeProximoCliente() {
     mutex.acquire();
     if (clientes.size() == 0) {
-//      log.info("Sem clientes no momento.");
+      // log.info("Sem clientes no momento.");
       mutex.release();
       return;
     }
