@@ -24,7 +24,7 @@ public class PSprite implements Widget {
   protected int                   animSpeed  = 300;
   private int                   nextTick;
 
-  public PSprite(ProcessingGUI context, String resource, int x, int y) {
+  public PSprite(String resource, int x, int y) {
     baseImg = Loader.INSTANCE.assetImg(resource);
     this.x = x;
     this.y = y;

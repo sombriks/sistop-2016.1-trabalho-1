@@ -19,11 +19,12 @@ public class AgenciaGUI implements GameState {
   private AgenciaBancaria agencia;
   private PButton         btAddCliente;
   private PButton         btFecharAgencia;
-  private long            numClientes = 1;
-  private List<PSprite>   clientes    = new ArrayList<>();
-  private List<PSprite>   caixas      = new ArrayList<>();
-  private int             animSpeed   = 300;
-  private int             nextTick    = 0;
+  private long            numClientes  = 1;
+  private List<PSprite>   clientes     = new ArrayList<>();
+  private List<PSprite>   clientesExit = new ArrayList<>();
+  private List<PSprite>   caixas       = new ArrayList<>();
+  private int             animSpeed    = 300;
+  private int             nextTick     = 0;
 
   public AgenciaGUI(ProcessingGUI context, int numCaixas) {
     agencia = new AgenciaBancaria(numCaixas);
@@ -39,7 +40,7 @@ public class AgenciaGUI implements GameState {
       @Override
       public void onClick() {
         log.info("Adicionar cliente randômico");
-        ProcessoCliente cli = agencia.recebeCliente(numClientes++, (long) (5000 + Math.random() * 15000));
+        ProcessoCliente cli = agencia.recebeCliente(numClientes++, (long) (3000 + Math.random() * 15000));
         String res = "open_chars" + rnd(11) + ".png";
         int px = (clientes.size() * 50) + 50;
         PCliente p = inventaCliente(context, res, px, 380);
@@ -57,7 +58,7 @@ public class AgenciaGUI implements GameState {
   }
 
   private PCliente inventaCliente(ProcessingGUI context, String res, int px, int py) {
-    PCliente p = new PCliente(context, res, px, py);
+    PCliente p = new PCliente(this, res, px, py);
     p.addFrame("down0", 0, 103, 32, 48);
     p.addFrame("down1", 36, 103, 32, 48);
     p.addFrame("down2", 73, 103, 32, 48);
@@ -66,7 +67,7 @@ public class AgenciaGUI implements GameState {
   }
 
   private PCaixa inventaCaixa(ProcessingGUI context, String res, int px, int py) {
-    PCaixa p = new PCaixa(context, res, px, py);
+    PCaixa p = new PCaixa(this, res, px, py);
     p.addFrame("down0", 0, 103, 32, 48);
     p.addFrame("down1", 36, 103, 32, 48);
     p.addFrame("down2", 73, 103, 32, 48);
@@ -91,6 +92,7 @@ public class AgenciaGUI implements GameState {
     btFecharAgencia.draw(context);
     for (PSprite cx : caixas)
       cx.draw(context);
+    clientes.removeAll(clientesExit);
     for (PSprite cli : clientes)
       cli.draw(context);
 
@@ -108,5 +110,9 @@ public class AgenciaGUI implements GameState {
 
   private int rnd(int max) {
     return (int) Math.floor(Math.random() * max);
+  }
+
+  public void remove(PCliente pCliente) {
+    clientesExit.add(pCliente);
   }
 }

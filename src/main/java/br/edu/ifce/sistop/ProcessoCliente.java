@@ -53,10 +53,13 @@ public class ProcessoCliente {
       t3 = System.currentTimeMillis();
       if (t2 <= t3)
         sorteandoboleto = false;
-      tempoAtendimento--;
+//      tempoAtendimento--;
     }
     tempoAtendimento = 0l;
     status = StatusCliente.Atendido;
+ // really hope you forgive-me;
+    if (this.sprite != null)
+      this.sprite.goAway();
     s = "O cliente %s de senha %s finalizou atendimento em %s";
     s = String.format(s, id, senha, new Timestamp(t3));
     log.info(s);
