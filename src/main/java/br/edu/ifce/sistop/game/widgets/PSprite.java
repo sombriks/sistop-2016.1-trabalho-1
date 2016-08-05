@@ -5,12 +5,15 @@ import java.util.Map;
 
 import br.edu.ifce.sistop.assets.Loader;
 import br.edu.ifce.sistop.game.ProcessingGUI;
+import lombok.Getter;
 import processing.core.PImage;
 
 public class PSprite implements Widget {
 
   // private ProcessingGUI context;
+  @Getter
   protected int                 x;
+  @Getter
   protected int                 y;
   private PImage                baseImg;
   private Map<String, PImage>   frames     = new HashMap<>();
@@ -18,7 +21,7 @@ public class PSprite implements Widget {
   private Map<String, String[]> animations = new HashMap<>();
   private String                currentAnimation;
   private int                   frameKey;
-  private int                   animSpeed  = 300;
+  protected int                   animSpeed  = 300;
   private int                   nextTick;
 
   public PSprite(ProcessingGUI context, String resource, int x, int y) {

@@ -3,16 +3,19 @@ package br.edu.ifce.sistop;
 import java.sql.Timestamp;
 import java.util.concurrent.Semaphore;
 
+import br.edu.ifce.sistop.game.widgets.PCaixa;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 @Data
 @Slf4j
 @RequiredArgsConstructor
+@ToString(exclude = { "sprite", "clienteAtual" })
 @EqualsAndHashCode(callSuper = false)
 public class ProcessoCaixa extends Thread {
 
@@ -23,6 +26,8 @@ public class ProcessoCaixa extends Thread {
   private ProcessoCliente clienteAtual;
   private int             atendidos = 0;
   private Semaphore       atende    = new Semaphore(1, true);
+  // really, really sorry
+  private PCaixa          sprite;
 
   void setClienteAtual(ProcessoCliente clienteAtual) {
     this.clienteAtual = clienteAtual;
@@ -36,7 +41,7 @@ public class ProcessoCaixa extends Thread {
     s = String.format(s, nome, cli.getId(), cli.getSenha(), new Timestamp(t1));
     log.info(s);
 
-    long t3 = cli.pagaContas(t1); // FIXME threadificar o cliente
+    long t3 = cli.pagaContas(t1, this); // FIXME threadificar o cliente
 
     s = "O caixa [%s] finalizou o atendimento do cliente (%s) às %s";
     s = String.format(s, nome, clienteAtual.getId(), new Timestamp(t3));
@@ -52,7 +57,7 @@ public class ProcessoCaixa extends Thread {
   @Override
   @SneakyThrows
   public void run() {
-    setName("Processo Caixa: ["+nome+"]");
+    setName("Processo Caixa: [" + nome + "]");
     atende.acquire();// começar fechando
     while (agencia.isAberta()) {
       atende.acquire(); // dorme até ter cliente

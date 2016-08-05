@@ -32,6 +32,7 @@ public abstract class PButton implements Widget {
     context.image(fundo, x, y, w, h);
     context.noTint();
     context.fill(0, 0, 0);
+    context.textSize(12);
     context.text(label, x, y);
   }
 

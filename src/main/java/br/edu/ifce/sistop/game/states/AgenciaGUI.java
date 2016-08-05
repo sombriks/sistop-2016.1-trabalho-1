@@ -33,17 +33,16 @@ public class AgenciaGUI implements GameState {
       PCaixa p = inventaCaixa(context, res, px, 100);
       p.setCaixa(pc);
       caixas.add(p);
-
     }
 
     btAddCliente = new PButton("Adicionar Cliente", 100, 440, 160, 32) {
       @Override
       public void onClick() {
         log.info("Adicionar cliente randômico");
-        ProcessoCliente cli = agencia.recebeCliente(numClientes++, (long) (5000 + Math.random() * 15));
+        ProcessoCliente cli = agencia.recebeCliente(numClientes++, (long) (5000 + Math.random() * 15000));
         String res = "open_chars" + rnd(11) + ".png";
         int px = (clientes.size() * 50) + 50;
-        PCliente p = inventaCliente(context, res, px, 400);
+        PCliente p = inventaCliente(context, res, px, 380);
         p.setCliente(cli);
         clientes.add(p);
       }
@@ -82,7 +81,6 @@ public class AgenciaGUI implements GameState {
       nextTick = tick + animSpeed;
       new Thread("AtendimentoDispatcher") {
         public void run() {
-
           agencia.atendeProximoCliente();
         };
       }.start();

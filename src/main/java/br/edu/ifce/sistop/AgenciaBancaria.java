@@ -71,6 +71,7 @@ public class AgenciaBancaria {
     ProcessoCaixa pc = caixas.remove(0);
     ProcessoCliente cli = clientes.remove(0);
     pc.setClienteAtual(cli);
+    cli.setCaixaAtendimento(pc);
     mutex.release();
   }
 
