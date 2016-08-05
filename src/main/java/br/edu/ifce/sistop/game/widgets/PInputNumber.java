@@ -8,7 +8,7 @@ import processing.core.PApplet;
 import processing.core.PConstants;
 
 @RequiredArgsConstructor
-public abstract class InputNumber implements TypeableWidget {
+public abstract class PInputNumber implements TypeableWidget {
 
   @NonNull
   private Integer        x;

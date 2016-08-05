@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.concurrent.Semaphore;
 
 import lombok.Getter;
-import lombok.Setter;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,7 +20,6 @@ public class AgenciaBancaria {
   @Getter
   private int                   totalCaixas;
   @Getter
-  @Setter
   private boolean               aberta;
   // cosmetic
   private String                nomes[]      = { "José", "Antônio", "Dorneles", "Atílio", "Fernando", "Bruce" };
@@ -33,13 +31,13 @@ public class AgenciaBancaria {
   }
 
   public AgenciaBancaria(int numCaixas) {
+    if (numCaixas <= 0)
+      throw new RuntimeException("A agencia deve ter ao menos um caixa");
     log.info("Abrindo a agência");
     aberta = true;
     totalCaixas = numCaixas;
-    // os caixas tem nomes
     int l1 = nomes.length;
     int l2 = sobrenomes.length;
-    // semáforo justo, fifo
     cxlivres = new Semaphore(numCaixas, true);
     while (numCaixas-- > 0) {
       String nome = nomes[rnd(l1)] + " " + sobrenomes[rnd(l2)];
@@ -52,7 +50,6 @@ public class AgenciaBancaria {
 
   public void recebeCliente(long i, long tempoAtendimento) {
     int l = senhas.length;
-    // já os clientes só tem senha
     String senha = senhas[rnd(l)] + senhas[rnd(l)] + senhas[rnd(l)] + senhas[rnd(l)];
 
     ProcessoCliente novoCliente = new ProcessoCliente(senha, i, tempoAtendimento, NaFila);
@@ -64,7 +61,7 @@ public class AgenciaBancaria {
   public void atendeProximoCliente() {
     mutex.acquire();
     if (clientes.size() == 0) {
-      log.info("Sem clientes no momento.");
+//      log.info("Sem clientes no momento.");
       mutex.release();
       return;
     }
@@ -82,13 +79,10 @@ public class AgenciaBancaria {
 
   @SneakyThrows
   public void fechaAgencia() {
+    aberta = false;
     String s = String.format("Expulsando da agência os %s clientes restantes", clientes.size());
     log.info(s);
     clientes.removeAll(clientes);
-    while (totalCaixas != caixas.size())
-      Thread.sleep(1000); 
-    aberta = false;
-
     log.info("Resumo de atendimento: ");
     int i = caixas.size();
     while (i-- > 0) {

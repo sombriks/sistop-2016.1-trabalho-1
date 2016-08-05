@@ -1,19 +1,21 @@
 package br.edu.ifce.sistop.game.states;
 
 import br.edu.ifce.sistop.game.ProcessingGUI;
-import br.edu.ifce.sistop.game.widgets.InputNumber;
+import br.edu.ifce.sistop.game.widgets.PInputNumber;
+import lombok.extern.slf4j.Slf4j;
 import processing.core.PConstants;
 
+@Slf4j
 public class GetCaixas implements GameState {
 
-  private InputNumber iNumber;
+  private PInputNumber iNumber;
 
   public GetCaixas(ProcessingGUI context) {
-    iNumber = new InputNumber(320, 220, 3) {
+    iNumber = new PInputNumber(320, 220, 3) {
       @Override
       public void onTyped() {
         int numCaixas = iNumber.getNumber();
-        System.out.println("Caixas iniciais: " + numCaixas);
+        log.info("Caixas iniciais: " + numCaixas);
         context.setCurrentState(new AgenciaGUI(context, numCaixas));
       }
     };

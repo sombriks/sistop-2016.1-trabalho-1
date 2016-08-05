@@ -52,6 +52,7 @@ class ProcessoCaixa extends Thread {
   @Override
   @SneakyThrows
   public void run() {
+    setName("Processo Caixa: ["+nome+"]");
     atende.acquire();// começar fechando
     while (agencia.isAberta()) {
       atende.acquire(); // dorme até ter cliente

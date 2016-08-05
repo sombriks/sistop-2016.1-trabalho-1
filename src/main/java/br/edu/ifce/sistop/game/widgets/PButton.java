@@ -10,7 +10,7 @@ import processing.core.PImage;
 
 @Data
 @RequiredArgsConstructor
-public abstract class Button implements Widget {
+public abstract class PButton implements Widget {
 
   @NonNull
   private String  label;
@@ -28,7 +28,9 @@ public abstract class Button implements Widget {
   public void draw(ProcessingGUI context) {
     context.imageMode(PConstants.CENTER);
     context.textAlign(PConstants.CENTER, PConstants.CENTER);
+    context.tint(0.0f, 255.0f, 255.0f);
     context.image(fundo, x, y, w, h);
+    context.noTint();
     context.fill(0, 0, 0);
     context.text(label, x, y);
   }
@@ -37,12 +39,12 @@ public abstract class Button implements Widget {
     int dx = context.mouseX - x;
     int dy = context.mouseY - y;
     if (Math.sqrt(Math.pow(dx, 2)) <= w / 2) {
-      if(Math.sqrt(Math.pow(dy, 2)) <= h /2 ){
+      if (Math.sqrt(Math.pow(dy, 2)) <= h / 2) {
         onClick();
       }
     }
   }
-  
+
   public abstract void onClick();
 
 }

@@ -1,14 +1,14 @@
 package br.edu.ifce.sistop.game.states;
 
 import br.edu.ifce.sistop.game.ProcessingGUI;
-import br.edu.ifce.sistop.game.widgets.Button;
+import br.edu.ifce.sistop.game.widgets.PButton;
 
 public class Inicio implements GameState {
 
-  private Button btIniciar;
+  private PButton btIniciar;
 
   public Inicio(ProcessingGUI context) {
-    btIniciar = new Button("Iniciar", 320, 240, 160, 32) {
+    btIniciar = new PButton("Iniciar", 320, 240, 160, 32) {
       @Override
       public void onClick() {
         context.setCurrentState(new GetCaixas(context));
