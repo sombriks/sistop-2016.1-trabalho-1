@@ -8,10 +8,10 @@ public class Inicio implements GameState {
   private Button btIniciar;
 
   public Inicio(ProcessingGUI context) {
-    btIniciar = new Button("Iniciar", 320, 240,160,32){
+    btIniciar = new Button("Iniciar", 320, 240, 160, 32) {
       @Override
       public void onClick() {
-       context.state("getcaixas"); 
+        context.setCurrentState(new GetCaixas(context));
       }
     };
   }
@@ -29,7 +29,7 @@ public class Inicio implements GameState {
 
   @Override
   public void keyTyped(ProcessingGUI context) {
-    
+
   }
 
 }

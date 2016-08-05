@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.concurrent.Semaphore;
 
 import lombok.Getter;
+import lombok.Setter;
 import lombok.SneakyThrows;
-import lombok.Synchronized;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -16,10 +16,12 @@ public class AgenciaBancaria {
 
   private List<ProcessoCaixa>   caixas       = new ArrayList<>();
   private List<ProcessoCliente> clientes     = new ArrayList<>();
-  private Semaphore             cxlivres;  
+  private Semaphore             cxlivres;
+  private Semaphore             mutex        = new Semaphore(1, true);
   @Getter
   private int                   totalCaixas;
   @Getter
+  @Setter
   private boolean               aberta;
   // cosmetic
   private String                nomes[]      = { "José", "Antônio", "Dorneles", "Atílio", "Fernando", "Bruce" };
@@ -59,12 +61,18 @@ public class AgenciaBancaria {
   }
 
   @SneakyThrows
-  @Synchronized("cxlivres") // mutex usar semaforo
   public void atendeProximoCliente() {
+    mutex.acquire();
+    if (clientes.size() == 0) {
+      log.info("Sem clientes no momento.");
+      mutex.release();
+      return;
+    }
     cxlivres.acquire();
     ProcessoCaixa pc = caixas.remove(0);
     ProcessoCliente cli = clientes.remove(0);
     pc.setClienteAtual(cli);
+    mutex.release();
   }
 
   void finalizouAtendimento(ProcessoCaixa caixa) {
@@ -78,7 +86,7 @@ public class AgenciaBancaria {
     log.info(s);
     clientes.removeAll(clientes);
     while (totalCaixas != caixas.size())
-      Thread.sleep(1000);
+      Thread.sleep(1000); 
     aberta = false;
 
     log.info("Resumo de atendimento: ");
