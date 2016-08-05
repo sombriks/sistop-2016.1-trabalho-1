@@ -50,13 +50,13 @@ public class AgenciaBancaria {
     }
   }
 
-  public void recebeCliente(long i, long tempoAtendimento) {
+  public ProcessoCliente recebeCliente(long i, long tempoAtendimento) {
     int l = senhas.length;
     String senha = senhas[rnd(l)] + senhas[rnd(l)] + senhas[rnd(l)] + senhas[rnd(l)];
-
     ProcessoCliente novoCliente = new ProcessoCliente(senha, i, tempoAtendimento, NaFila);
     log.info("Novo cliente: " + novoCliente);
     clientes.add(novoCliente);
+    return novoCliente;
   }
 
   @SneakyThrows

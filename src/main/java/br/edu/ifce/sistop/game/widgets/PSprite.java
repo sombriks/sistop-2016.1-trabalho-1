@@ -10,8 +10,8 @@ import processing.core.PImage;
 public class PSprite implements Widget {
 
   // private ProcessingGUI context;
-  private int                   x;
-  private int                   y;
+  protected int                 x;
+  protected int                 y;
   private PImage                baseImg;
   private Map<String, PImage>   frames     = new HashMap<>();
   private PImage                currentFrame;
